@@ -26,6 +26,7 @@ class IOSCamera implements CameraInterface {
 
   /// Temporary implementation for capturing an image on iOS.
   /// This method needs to be implemented specifically for iOS platform.
+  @override
   Future<Uint8List?> captureImage() {
     // TODO: Implement image capturing for iOS
     throw UnimplementedError('captureImage is not yet implemented for iOS');

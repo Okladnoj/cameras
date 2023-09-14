@@ -6,5 +6,6 @@
     "java.configuration.updateBuildConfiguration": "interactive",
     "cSpell.words": [
       "okjl"
-    ]
+    ],
+    "cmake.sourceDirectory": "/Users/okji/self/flutter/lib/cameras/example/linux"
   }

@@ -51,7 +51,6 @@ class _MyAppState extends State<MyApp> {
         ),
         body: Builder(builder: (context) {
           if (_loading) return const Center(child: CircularProgressIndicator());
-          print('$_list');
 
           final contr = _controller;
           if (contr != null) return contr.buildPreview(context);

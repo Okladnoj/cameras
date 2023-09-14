@@ -71,7 +71,7 @@ class WebCamera implements CameraInterface {
     final completer = Completer<Uint8List>();
 
     final dataUrl = canvas.toDataUrl('image/jpeg');
-    final base64String = dataUrl.split(",").last;
+    final base64String = dataUrl.split(',').last;
     final uint8List = base64.decode(base64String);
     completer.complete(uint8List);
 

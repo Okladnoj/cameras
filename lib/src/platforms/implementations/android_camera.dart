@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/services.dart';
 
 import '../../../cameras.dart';
@@ -16,7 +18,7 @@ class AndroidCamera implements CameraInterface {
         // ... Other parameters if needed
       });
     } on PlatformException catch (e) {
-      print("Error initializing camera: ${e.message}");
+      log('Error initializing camera: ${e.message}');
     }
   }
 
@@ -25,7 +27,7 @@ class AndroidCamera implements CameraInterface {
     try {
       await _channel.invokeMethod('startStream');
     } on PlatformException catch (e) {
-      print("Error starting stream: ${e.message}");
+      log('Error starting stream: ${e.message}');
     }
   }
 
@@ -34,7 +36,7 @@ class AndroidCamera implements CameraInterface {
     try {
       await _channel.invokeMethod('stopStream');
     } on PlatformException catch (e) {
-      print("Error stopping stream: ${e.message}");
+      log('Error stopping stream: ${e.message}');
     }
   }
 
@@ -44,7 +46,7 @@ class AndroidCamera implements CameraInterface {
       final bytes = await _channel.invokeMethod<Uint8List>('captureImage');
       return bytes;
     } on PlatformException catch (e) {
-      print("Error capturing image: ${e.message}");
+      log('Error capturing image: ${e.message}');
       return null;
     }
   }
