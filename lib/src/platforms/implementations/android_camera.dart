@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/services.dart';
 
-import '../../../cameras.dart';
+import '../../../a_cameras.dart';
 import '../camera_interface.dart';
 
 class AndroidCamera implements CameraInterface {

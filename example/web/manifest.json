@@ -1,6 +1,6 @@
 {
-    "name": "cameras_example",
-    "short_name": "cameras_example",
+    "name": "a_cameras_example",
+    "short_name": "a_cameras_example",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import '../../../cameras.dart';
+import '../../../a_cameras.dart';
 import '../camera_interface.dart';
 
 /// Represents the iOS implementation of the [CameraInterface].

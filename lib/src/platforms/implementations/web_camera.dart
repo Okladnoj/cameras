@@ -4,7 +4,7 @@ import 'package:universal_html/html.dart' as html;
 
 import 'package:flutter/services.dart';
 
-import '../../../cameras.dart';
+import '../../../a_cameras.dart';
 import '../camera_interface.dart';
 
 /// Represents the web implementation of the [CameraInterface].

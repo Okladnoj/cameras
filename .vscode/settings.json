@@ -1,11 +1,7 @@
 {
-    "kotlin.format.enabled": true,
-    "kotlin.lintOnSave": true,
-    "notebook.formatOnSave.enabled": true,
-    "xml.format.enabled": true,
-    "java.configuration.updateBuildConfiguration": "interactive",
     "cSpell.words": [
-      "okjl"
+      "okjl",
+      "videoinput"
     ],
-    "cmake.sourceDirectory": "/Users/okji/self/flutter/lib/cameras/example/linux"
+    "java.configuration.updateBuildConfiguration": "interactive",
   }

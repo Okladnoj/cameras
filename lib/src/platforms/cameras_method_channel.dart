@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../models/camera_description/camera_description.dart';
@@ -16,7 +17,10 @@ class MethodChannelCameras extends CamerasPlatform {
 
   @override
   Future<SuppPlatform> getPlatformType() async {
+    if (kIsWeb) return SuppPlatform.web;
+
     final platformName = await iMethod<String>('getPlatformType');
+
     switch (platformName) {
       case 'android':
         return SuppPlatform.android;

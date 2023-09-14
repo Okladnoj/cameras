@@ -1,17 +1,29 @@
 part of 'cameras.dart';
 
+/// Controller for managing camera functionalities.
+///
+/// This controller provides methods to interact with the camera based on the platform.
 class CameraController {
+  /// The platform on which the app is currently running.
   final SuppPlatform platform;
+
+  /// Instance of the web camera (if available).
   final WebCamera? webCamera;
+
+  /// Instance of the Android camera (if available).
   final AndroidCamera? androidCamera;
+
+  /// Instance of the iOS camera (if available).
   final IOSCamera? iOSCamera;
 
+  /// Constructs a [CameraController] for the given platform [p].
   CameraController._(SuppPlatform p)
       : platform = p,
         webCamera = (p == SuppPlatform.web) ? WebCamera() : null,
         androidCamera = (p == SuppPlatform.android) ? AndroidCamera() : null,
         iOSCamera = (p == SuppPlatform.ios) ? IOSCamera() : null;
 
+  /// Initializes the camera using the provided [cameraDescription].
   Future<void> initializeCamera(CameraDescription cameraDescription) async {
     switch (platform) {
       case SuppPlatform.web:
@@ -25,6 +37,7 @@ class CameraController {
     }
   }
 
+  /// Starts the camera stream for the current platform.
   Future<void> startStream() async {
     switch (platform) {
       case SuppPlatform.web:
@@ -38,6 +51,7 @@ class CameraController {
     }
   }
 
+  /// Stops the camera stream for the current platform.
   Future<void> stopStream() async {
     switch (platform) {
       case SuppPlatform.web:
@@ -51,6 +65,9 @@ class CameraController {
     }
   }
 
+  /// Captures an image using the camera on the current platform.
+  ///
+  /// Returns a [Uint8List] that contains the image data.
   Future<Uint8List?> captureImage() async {
     switch (platform) {
       case SuppPlatform.web:
@@ -64,6 +81,7 @@ class CameraController {
     }
   }
 
+  /// Builds the camera preview widget based on the current platform.
   Widget buildPreview(BuildContext context) {
     switch (platform) {
       case SuppPlatform.web:
@@ -76,6 +94,7 @@ class CameraController {
     }
   }
 
+  /// Builds the camera preview widget for web.
   Widget _buildWebPreview() {
     final videoElement = html.VideoElement()
       ..srcObject = webCamera?.currentStream
@@ -109,6 +128,9 @@ class CameraController {
     );
   }
 
+  /// Placeholder for building the camera preview widget for mobile platforms.
+  ///
+  /// This method should be implemented to return the camera preview for Android and iOS.
   Widget _buildMobilePreview() {
     return Container();
   }

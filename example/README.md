@@ -1,4 +1,4 @@
-# cameras_example
+# a_cameras_example
 
 Demonstrates how to use the cameras plugin.
 

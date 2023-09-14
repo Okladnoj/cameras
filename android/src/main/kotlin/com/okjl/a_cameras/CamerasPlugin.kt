@@ -1,3 +1,5 @@
+package com.okjl.a_cameras
+
 import android.content.Context
 import android.hardware.camera2.CameraAccessException
 import android.hardware.camera2.CameraManager
