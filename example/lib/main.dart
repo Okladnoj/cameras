@@ -1,7 +1,8 @@
 import 'package:a_cameras/a_cameras.dart';
-import 'package:a_cameras_example/picture_page.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
+
+import 'picture_page.dart';
 
 void main() {
   runApp(const MyApp());
