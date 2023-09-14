@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:universal_html/html.dart' as html show window;
+import 'package:universal_html/html.dart' as html show window, Navigator;
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
@@ -12,13 +12,15 @@ import '../utils/logger/logger.dart';
 class CamerasWeb extends CamerasPlatform {
   CamerasWeb();
 
+  html.Navigator get _navigator => html.window.navigator;
+
   static void registerWith(Registrar registrar) {
     CamerasPlatform.instance = CamerasWeb();
   }
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = html.window.navigator.userAgent;
+    final version = _navigator.userAgent;
     return 'WEB: $version';
   }
 
@@ -34,19 +36,32 @@ class CamerasWeb extends CamerasPlatform {
       try {
         // Request the browser for access to the camera by calling getUserMedia.
         // This will trigger a permission request to the user.
-        final cameraStream =
-            await html.window.navigator.getUserMedia(video: true);
+        // To ensure only video is used, you can set audio: false.
+        final cameraStream = await _navigator.getUserMedia(
+          video: {
+            'mandatory': {
+              'minWidth': 1280,
+              'minHeight': 720,
+              'minFrameRate': 30
+            },
+            'optional': []
+          },
+          audio: false,
+        );
 
         logger.w('cameraStream.id => ${cameraStream.id}');
 
-        // After getting the stream, immediately stop any audio tracks if they exist.
-        // This is done to ensure that only the video stream is active.
+        // Since we've specified audio: false, this step may not be necessary
+        // But in case you decide to enable audio later, it's good to keep.
         cameraStream.getAudioTracks().forEach((track) => track.stop());
 
         logger.w('cameraStream => $cameraStream');
-      } catch (_) {}
+      } catch (e) {
+        // Handle the error
+        logger.e('Error accessing camera: $e');
+      }
 
-      final mediaDevices = html.window.navigator.mediaDevices;
+      final mediaDevices = _navigator.mediaDevices;
 
       if (mediaDevices == null) {
         log('MediaDevices is null. The browser might not support this feature.');
