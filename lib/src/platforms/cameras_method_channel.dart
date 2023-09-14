@@ -1,8 +1,8 @@
-import 'package:cameras/src/utils/extensions/extensions.dart';
 import 'package:flutter/services.dart';
 
 import '../models/camera_description/camera_description.dart';
 import '../models/enums/supported_platforms.dart';
+import '../utils/extensions/extensions.dart';
 import 'cameras_platform_interface.dart';
 
 class MethodChannelCameras extends CamerasPlatform {

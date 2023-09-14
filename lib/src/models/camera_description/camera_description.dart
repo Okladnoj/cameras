@@ -1,6 +1,6 @@
-import 'package:cameras/src/utils/json_converter/api_errors_converter.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../utils/json_converter/api_errors_converter.dart';
 import '../enums/lens_direction.dart';
 
 part 'camera_description.freezed.dart';

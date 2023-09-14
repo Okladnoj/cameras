@@ -1,7 +1,9 @@
-name: cameras
-description: A new Flutter plugin project.
+name: a_cameras
+description: A Flutter plugin for accessing camera functionalities across various platforms with a unified API. Currently supports web only.
 version: 0.0.1
-homepage:
+homepage: https://github.com/Okladnoj/cameras
+repository: https://github.com/Okladnoj/cameras
+
 
 environment:
   sdk: '>=3.1.1 <4.0.0'
@@ -43,3 +45,11 @@ flutter:
       web:
         pluginClass: CamerasWeb
         fileName: cameras_web.dart
+
+keywords:
+  - camera
+  - photo
+  - video
+  - flutter
+
+license: MIT

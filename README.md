@@ -1,15 +1,61 @@
-# cameras
+# Cameras Plugin
 
-A new Flutter plugin project.
+A Flutter plugin for accessing camera features across multiple platforms with a single unified API. Currently supports Web platform, with more platforms coming soon.
 
-## Getting Started
+## Features
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+- Access camera streams
+- Capture images
+- Unified API across platforms
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
 
+Add the following to your `pubspec.yaml` file:
+
+```
+dependencies:
+  cameras: ^0.0.1
+```
+
+Then run `flutter pub get`.
+
+## Usage
+
+1. **Initialize the camera**:
+
+```dart
+import 'package:cameras/cameras.dart';
+
+final camerasPlugin = Cameras();
+
+List<CameraDescription> availableCameras = await camerasPlugin.getAvailableCameras();
+CameraController controller = await camerasPlugin.getCameraController();
+await controller.initializeCamera(availableCameras.first);
+```
+
+2. **Start/Stop Camera Stream**:
+
+```dart
+await controller.startStream();
+await controller.stopStream();
+```
+
+3. **Capture an image**:
+
+```dart
+Uint8List? imageBytes = await controller.captureImage();
+```
+
+## Supported Platforms
+
+- [x] Web
+- [ ] Android (Coming Soon)
+- [ ] iOS (Coming Soon)
+
+## Contributing
+
+Contributions are welcome! Feel free to open an issue or submit a pull request if you have any improvements.
+
+## License
+
+MIT License.
