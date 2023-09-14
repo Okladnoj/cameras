@@ -14,7 +14,7 @@ Add the following to your `pubspec.yaml` file:
 
 ```
 dependencies:
-  cameras: ^0.0.1
+  a_cameras: ^0.0.1
 ```
 
 Then run `flutter pub get`.
@@ -24,7 +24,7 @@ Then run `flutter pub get`.
 1. **Initialize the camera**:
 
 ```dart
-import 'package:cameras/cameras.dart';
+import 'package:a_cameras/a_cameras.dart';
 
 final camerasPlugin = Cameras();
 
