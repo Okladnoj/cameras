@@ -100,6 +100,7 @@ class CameraController {
       ..srcObject = webCamera?.currentStream
       ..autoplay = true
       ..controls = false
+      ..setAttribute('playsinline', 'true')
       ..style.position = 'absolute'
       ..style.minWidth = '100%'
       ..style.minHeight = '100%'
@@ -107,7 +108,13 @@ class CameraController {
       ..style.height = 'auto'
       ..style.top = '50%'
       ..style.left = '50%'
+      ..style.pointerEvents = 'none'
+      ..style.cursor = 'none'
       ..style.transform = 'translate(-50%, -50%)';
+
+    videoElement.addEventListener('click', (e) {
+      e.preventDefault();
+    });
 
     final videoElementId =
         'camera-preview-${DateTime.now().millisecondsSinceEpoch}';
