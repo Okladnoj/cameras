@@ -30,8 +30,11 @@ class Cameras {
   /// Fetches the list of available cameras.
   ///
   /// Returns a list of [CameraDescription] that describes each available camera on the platform.
-  Future<List<CameraDescription>> getAvailableCameras() {
-    return _instance.getAvailableCameras();
+  ///
+  /// [bool back = true] - Request started with Back Camera
+  ///
+  Future<List<CameraDescription>> getAvailableCameras([bool back = true]) {
+    return _instance.getAvailableCameras(back);
   }
 
   /// Creates and returns a [CameraController] for controlling camera actions.
