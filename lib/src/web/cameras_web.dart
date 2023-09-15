@@ -62,9 +62,7 @@ class CamerasWeb extends CamerasPlatform {
       // Request access to the camera, making the constraints less strict.
       final cameraStream = await _navigator.getUserMedia(
         video: {
-          'facingMode': 'user',
-          'width': {'ideal': 1280},
-          'height': {'ideal': 720}
+          'facingMode': {'exact': 'environment'},
         },
         audio: false,
       );
@@ -80,17 +78,13 @@ class CamerasWeb extends CamerasPlatform {
     try {
       final mediaDevices = _navigator.mediaDevices;
       if (mediaDevices != null) {
-        final devices = await mediaDevices.enumerateDevices();
-        final videoDevices = devices.where((device) {
-          return device.kind == 'videoinput';
-        }).toList();
-
-        for (var device in videoDevices) {
-          await _navigator.getUserMedia(
-            video: {'deviceId': device.deviceId},
-            audio: false,
-          );
-        }
+        final cameraStream = await mediaDevices.getUserMedia({
+          'video': {
+            'facingMode': {'exact': 'environment'},
+          },
+          'audio': false,
+        });
+        cameraStream.getAudioTracks().forEach((track) => track.stop());
       }
     } catch (e) {
       log('Error requesting permissions for all cameras: $e');
