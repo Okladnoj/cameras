@@ -62,7 +62,7 @@ class CamerasWeb extends CamerasPlatform {
       // Request access to the camera, making the constraints less strict.
       final cameraStream = await _navigator.getUserMedia(
         video: {
-          'facingMode': 'user',
+          'facingMode': 'environment',
           'width': {'ideal': 1280},
           'height': {'ideal': 720}
         },
