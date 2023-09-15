@@ -13,7 +13,7 @@ class MockCamerasPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<List<CameraDescription>> getAvailableCameras() {
+  Future<List<CameraDescription>> getAvailableCameras([bool back = true]) {
     throw UnimplementedError();
   }
 

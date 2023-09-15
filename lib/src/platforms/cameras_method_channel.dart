@@ -32,7 +32,9 @@ class MethodChannelCameras extends CamerasPlatform {
   }
 
   @override
-  Future<List<CameraDescription>> getAvailableCameras() async {
+  Future<List<CameraDescription>> getAvailableCameras([
+    bool back = true,
+  ]) async {
     final result = await iMethod<List<dynamic>>('getAvailableCameras');
 
     return result.pars(CameraDescription.fromJson).toList();

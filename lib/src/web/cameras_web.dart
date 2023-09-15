@@ -29,12 +29,14 @@ class CamerasWeb extends CamerasPlatform {
   }
 
   @override
-  Future<List<CameraDescription>> getAvailableCameras() async {
+  Future<List<CameraDescription>> getAvailableCameras([
+    bool back = true,
+  ]) async {
     List<CameraDescription> availableCameras = [];
     try {
-      await _navigatorRequestPermissions();
+      await _navigatorRequestPermissions(back);
       await Future.delayed(const Duration(milliseconds: 150));
-      await _requestPermissionsForAllCameras();
+      await _requestPermissionsForAllCameras(back);
 
       final mediaDevices = _navigator.mediaDevices;
       if (mediaDevices == null) {
@@ -57,12 +59,12 @@ class CamerasWeb extends CamerasPlatform {
     return availableCameras;
   }
 
-  Future<void> _navigatorRequestPermissions() async {
+  Future<void> _navigatorRequestPermissions(bool back) async {
     try {
       // Request access to the camera, making the constraints less strict.
       final cameraStream = await _navigator.getUserMedia(
         video: {
-          'facingMode': {'exact': 'environment'},
+          'facingMode': back ? 'environment' : 'user',
         },
         audio: false,
       );
@@ -74,13 +76,13 @@ class CamerasWeb extends CamerasPlatform {
     }
   }
 
-  Future<void> _requestPermissionsForAllCameras() async {
+  Future<void> _requestPermissionsForAllCameras(bool back) async {
     try {
       final mediaDevices = _navigator.mediaDevices;
       if (mediaDevices != null) {
         final cameraStream = await mediaDevices.getUserMedia({
           'video': {
-            'facingMode': {'exact': 'environment'},
+            'facingMode': back ? 'environment' : 'user',
           },
           'audio': false,
         });

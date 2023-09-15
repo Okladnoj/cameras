@@ -22,5 +22,5 @@ abstract class CamerasPlatform extends PlatformInterface {
 
   Future<SuppPlatform> getPlatformType();
 
-  Future<List<CameraDescription>> getAvailableCameras();
+  Future<List<CameraDescription>> getAvailableCameras([bool back = true]);
 }
