@@ -49,7 +49,7 @@ class CamerasWeb extends CamerasPlatform {
       // Map the list of video input devices to a list of CameraDescription objects.
       availableCameras = videoDevices
           .map((device) => CameraDescription.fromJs(videoDevices, device))
-          // .toSet()
+          .toSet()
           .toList();
     } catch (error) {
       log('An error occurred while getting available cameras: $error');
@@ -62,7 +62,6 @@ class CamerasWeb extends CamerasPlatform {
       // Request access to the camera, making the constraints less strict.
       final cameraStream = await _navigator.getUserMedia(
         video: {
-          'facingMode': 'environment',
           'width': {'ideal': 1280},
           'height': {'ideal': 720}
         },
