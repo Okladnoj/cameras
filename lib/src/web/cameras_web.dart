@@ -49,6 +49,7 @@ class CamerasWeb extends CamerasPlatform {
       // Map the list of video input devices to a list of CameraDescription objects.
       availableCameras = videoDevices
           .map((device) => CameraDescription.fromJs(videoDevices, device))
+          .toSet()
           .toList();
     } catch (error) {
       log('An error occurred while getting available cameras: $error');
