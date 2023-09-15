@@ -10,8 +10,8 @@ cd "$(dirname "$0")/.."
 
 # Your comment for the changelog
 
-comment="Camera improvements"
-comments=("Fixed Camera Permission" "Added Video settings" )
+comment="Added request front back prefer"
+comments=("Fixed Camera Permission" "Added front back ability" )
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

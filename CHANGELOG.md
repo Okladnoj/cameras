@@ -1,3 +1,8 @@
+## 0.1.0 - Added request front back prefer
+
+- Fixed Camera Permission
+- Added front back ability
+
 ## 0.0.8 - Camera improvements
 
 - Fixed Camera Permission
