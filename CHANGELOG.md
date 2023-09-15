@@ -1,3 +1,8 @@
+## 0.0.8 - Camera improvements
+
+- Fixed Camera Permission
+- Added Video settings
+
 ## 0.0.7 - Added web console
 
 - Added web console

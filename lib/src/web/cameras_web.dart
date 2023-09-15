@@ -33,33 +33,8 @@ class CamerasWeb extends CamerasPlatform {
   Future<List<CameraDescription>> getAvailableCameras() async {
     try {
       // Check if mediaDevices is not null. If it's null, then the browser might not support this feature.
-      try {
-        // Request the browser for access to the camera by calling getUserMedia.
-        // This will trigger a permission request to the user.
-        // To ensure only video is used, you can set audio: false.
-        final cameraStream = await _navigator.getUserMedia(
-          video: {
-            'mandatory': {
-              'minWidth': 1280,
-              'minHeight': 720,
-              'minFrameRate': 30
-            },
-            'optional': []
-          },
-          audio: false,
-        );
-
-        logger.w('cameraStream.id => ${cameraStream.id}');
-
-        // Since we've specified audio: false, this step may not be necessary
-        // But in case you decide to enable audio later, it's good to keep.
-        cameraStream.getAudioTracks().forEach((track) => track.stop());
-
-        logger.w('cameraStream => $cameraStream');
-      } catch (e) {
-        // Handle the error
-        logger.e('Error accessing camera: $e');
-      }
+      await _navigatorRequestPermissions();
+      await _mediaDevicesRequestPermissions();
 
       final mediaDevices = _navigator.mediaDevices;
 
@@ -87,6 +62,55 @@ class CamerasWeb extends CamerasPlatform {
     } catch (error) {
       log('An error occurred while getting available cameras: $error');
       return [];
+    }
+  }
+
+  Future<void> _navigatorRequestPermissions() async {
+    try {
+      // Request the browser for access to the camera by calling getUserMedia.
+      // This will trigger a permission request to the user.
+      // To ensure only video is used, you can set audio: false.
+      final cameraStream = await _navigator.getUserMedia(
+        video: {
+          'mandatory': {'minWidth': 1280, 'minHeight': 720, 'minFrameRate': 30},
+          'optional': []
+        },
+        audio: false,
+      );
+
+      logger.w('cameraStream.id => ${cameraStream.id}');
+
+      // Since we've specified audio: false, this step may not be necessary
+      // But in case you decide to enable audio later, it's good to keep.
+      cameraStream.getAudioTracks().forEach((track) => track.stop());
+
+      logger.w('cameraStream => $cameraStream');
+    } catch (e) {
+      // Handle the error
+      logger.e('Error accessing camera: $e');
+    }
+  }
+
+  Future<void> _mediaDevicesRequestPermissions() async {
+    try {
+      // Request the browser for access to the camera by calling getUserMedia.
+      // This will trigger a permission request to the user.
+      // To ensure only video is used, you can set audio: false.
+
+      final cameraStream = await _navigator.mediaDevices?.getUserMedia({
+        'video': {
+          'mandatory': {'minWidth': 1280, 'minHeight': 720, 'minFrameRate': 30},
+          'optional': []
+        },
+        'audio': false,
+      });
+
+      // Since we've specified audio: false, this step may not be necessary
+      // But in case you decide to enable audio later, it's good to keep.
+      cameraStream?.getAudioTracks().forEach((track) => track.stop());
+    } catch (e) {
+      // Handle the error
+      logger.e('Error accessing camera: $e');
     }
   }
 }
