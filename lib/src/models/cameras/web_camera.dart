@@ -25,9 +25,7 @@ class WebCamera implements CameraInterface {
   Future<void> initializeCamera(CameraDescription cameraDescription) async {
     if (html.window.navigator.mediaDevices != null) {
       final constraints = {
-        'video': {
-          'deviceId': cameraDescription.id,
-        }
+        'video': {'deviceId': cameraDescription.id}
       };
       _cameraStream =
           await html.window.navigator.mediaDevices!.getUserMedia(constraints);
@@ -57,12 +55,10 @@ class WebCamera implements CameraInterface {
   }
 
   @override
-  Future<Uint8List?> captureImage() async {
-    final videoElement = html.VideoElement()
-      ..srcObject = currentStream
-      ..autoplay = true;
+  Future<Uint8List?> captureImage([dynamic element]) async {
+    final videoElement = element;
 
-    await videoElement.onLoadedMetadata.first;
+    if (videoElement is! html.VideoElement) return null;
 
     final width = videoElement.videoWidth;
     final height = videoElement.videoHeight;
@@ -73,10 +69,6 @@ class WebCamera implements CameraInterface {
 
     final ctx = canvas.getContext('2d') as html.CanvasRenderingContext2D;
     ctx.drawImage(videoElement, 0, 0);
-
-    videoElement.pause();
-    videoElement.srcObject = null;
-    videoElement.remove();
 
     final completer = Completer<Uint8List>();
 

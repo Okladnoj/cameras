@@ -13,6 +13,8 @@ import '../models/enums/supported_platforms.dart';
 ///
 /// This controller provides methods to interact with the camera based on the platform.
 class ControllerWeb extends CameraController {
+  html.VideoElement? _videoElement;
+
   /// Constructs a [ControllerWeb] for the given platform [p].
 
   ControllerWeb._({required super.platform, super.webCamera});
@@ -66,7 +68,7 @@ class ControllerWeb extends CameraController {
   Future<Uint8List?> captureImage() async {
     switch (platform) {
       case SuppPlatform.web:
-        return webCamera?.captureImage();
+        return webCamera?.captureImage(_videoElement);
       default:
         throw UnsupportedError('Platform not supported');
     }
@@ -88,6 +90,103 @@ class ControllerWeb extends CameraController {
     final webCamera = this.webCamera;
     if (webCamera is! WebCamera) return const SizedBox.shrink();
 
+    _videoElement = _getVideoElement(webCamera);
+    final videoElement = _videoElement;
+
+    if (videoElement == null) return const SizedBox.shrink();
+
+    final videoElementId =
+        'camera-preview-${DateTime.now().millisecondsSinceEpoch}';
+    videoElement.id = videoElementId;
+
+    var body = html.document.body;
+    if (body == null) return const SizedBox.shrink();
+    body.children.add(videoElement);
+
+    ui.platformViewRegistry.registerViewFactory(
+      videoElementId,
+      (int viewId) => videoElement,
+    );
+
+    return HtmlElementView(
+      key: UniqueKey(),
+      viewType: videoElementId,
+    );
+  }
+
+  html.VideoElement _getVideoElement(WebCamera webCamera) {
+    final userAgent = html.window.navigator.userAgent.toLowerCase();
+
+    if (RegExp(r'ipad').hasMatch(userAgent)) {
+      final videoElement = html.VideoElement()
+        ..srcObject = webCamera.currentStream
+        ..autoplay = true
+        ..controls = false
+        ..setAttribute('playsinline', 'true')
+        ..style.position = 'absolute'
+        ..style.minWidth = '100%'
+        ..style.minHeight = '100%'
+        ..style.width = 'auto'
+        ..style.height = 'auto'
+        ..style.top = '50%'
+        ..style.left = '50%'
+        ..style.pointerEvents = 'none'
+        ..style.cursor = 'none'
+        ..style.transform = 'translate(-50%, -50%)';
+
+      videoElement.addEventListener('click', (e) {
+        e.preventDefault();
+      });
+      return videoElement;
+    }
+    if (RegExp(r'iphone|ipod').hasMatch(userAgent)) {
+      final videoElement = html.VideoElement()
+        ..srcObject = webCamera.currentStream
+        ..autoplay = true
+        ..controls = false
+        ..setAttribute('playsinline', 'true')
+        ..style.position = 'absolute'
+        ..style.minWidth = '100%'
+        ..style.minHeight = '100%'
+        ..style.width = 'auto'
+        ..style.height = 'auto'
+        ..style.top = '50%'
+        ..style.left = '50%'
+        ..style.pointerEvents = 'none'
+        ..style.cursor = 'none'
+        ..style.transform = 'translate(-50%, -50%)';
+
+      videoElement.addEventListener('click', (e) {
+        e.preventDefault();
+      });
+      return videoElement;
+    }
+    if (RegExp(r'android').hasMatch(userAgent)) {
+      final videoElement = html.VideoElement()
+        ..srcObject = webCamera.currentStream
+        ..autoplay = true
+        ..controls = false
+        ..style.position = 'absolute'
+        ..style.minWidth = '100%'
+        ..style.minHeight = '100%'
+        ..style.width = 'auto'
+        ..style.height = 'auto'
+        ..style.top = '50%'
+        ..style.left = '50%'
+        ..style.transform = 'translate(-50%, -50%)';
+
+      return videoElement;
+    }
+    if (RegExp(r'windows nt').hasMatch(userAgent)) {
+      // Windows
+    }
+    if (RegExp(r'mac os').hasMatch(userAgent)) {
+      // macOS
+    }
+    if (RegExp(r'linux').hasMatch(userAgent)) {
+      // Linux
+    }
+
     final videoElement = html.VideoElement()
       ..srcObject = webCamera.currentStream
       ..autoplay = true
@@ -107,23 +206,6 @@ class ControllerWeb extends CameraController {
     videoElement.addEventListener('click', (e) {
       e.preventDefault();
     });
-
-    final videoElementId =
-        'camera-preview-${DateTime.now().millisecondsSinceEpoch}';
-    videoElement.id = videoElementId;
-
-    var body = html.document.body;
-    if (body == null) return const SizedBox.shrink();
-    body.children.add(videoElement);
-
-    ui.platformViewRegistry.registerViewFactory(
-      videoElementId,
-      (int viewId) => videoElement,
-    );
-
-    return HtmlElementView(
-      key: UniqueKey(),
-      viewType: videoElementId,
-    );
+    return videoElement;
   }
 }

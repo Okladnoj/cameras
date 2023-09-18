@@ -1,3 +1,7 @@
+## 1.0.2
+
+- Fixed Web capture image on iOS Device
+
 ## 1.0.1
 
 - Fixed Web capture image

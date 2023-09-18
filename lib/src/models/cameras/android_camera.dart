@@ -36,7 +36,7 @@ class AndroidCamera implements CameraInterface {
   }
 
   @override
-  Future<Uint8List?> captureImage() async {
+  Future<Uint8List?> captureImage([dynamic element]) async {
     try {
       final file = await _controller?.takePicture();
       final bites = file?.readAsBytes();

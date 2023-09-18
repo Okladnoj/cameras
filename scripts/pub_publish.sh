@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog
-comments=("Fixed Web capture image")
+comments=("Fixed Web capture image on iOS Device")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

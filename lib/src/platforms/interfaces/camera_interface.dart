@@ -25,5 +25,5 @@ abstract class CameraInterface {
   /// Captures a single image from the camera stream.
   ///
   /// Returns a [Uint8List] containing the image data.
-  Future<Uint8List?> captureImage();
+  Future<Uint8List?> captureImage([dynamic videoElement]);
 }
