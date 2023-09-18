@@ -12,6 +12,17 @@ class PicturePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Image.memory(imageBytes)));
+    return Scaffold(
+      appBar: AppBar(),
+      body: SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: InteractiveViewer(
+          minScale: 0.1,
+          maxScale: 5.0,
+          child: Image.memory(imageBytes),
+        ),
+      ),
+    );
   }
 }

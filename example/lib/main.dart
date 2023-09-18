@@ -21,6 +21,7 @@ class _MyAppState extends State<MyApp> {
   List<CameraDescription> _list = [];
   CameraController? _controller;
   bool _loading = false;
+  int _currentCameraIndex = 0;
 
   @override
   void initState() {
@@ -42,12 +43,44 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  Future<void> _switchCamera() async {
+    final newIndex = (_currentCameraIndex + 1) % _list.length;
+    await _controller?.initializeCamera(_list[newIndex]);
+
+    setState(() {
+      _currentCameraIndex = newIndex;
+    });
+  }
+
+  Future<void> _captureImage(BuildContext context) async {
+    final bytes = await _controller?.captureImage();
+    if (bytes == null) return;
+
+    if (!mounted) return;
+
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) {
+          return PicturePage(imageBytes: bytes);
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.switch_camera, size: 42),
+              onPressed: _switchCamera,
+            ),
+            const SizedBox(width: 16),
+          ],
         ),
         body: Builder(builder: (context) {
           if (_loading) return const Center(child: CircularProgressIndicator());
@@ -57,20 +90,19 @@ class _MyAppState extends State<MyApp> {
 
           return Center(child: Text('Running on: $_list\n'));
         }),
-        floatingActionButton: Builder(builder: (context) {
-          return FloatingActionButton(onPressed: () async {
-            final bytes = await _controller?.captureImage();
-            if (bytes == null) return;
-
-            if (!mounted) return;
-
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) {
-                return PicturePage(imageBytes: bytes);
-              },
-            ));
-          });
-        }),
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+        floatingActionButton: Builder(
+          builder: (context) {
+            return OutlinedButton(
+              onPressed: () => _captureImage(context),
+              style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.blue.withOpacity(0.4),
+                shape: const StadiumBorder(),
+              ),
+              child: const Icon(Icons.camera_alt, size: 64),
+            );
+          },
+        ),
       ),
     );
   }

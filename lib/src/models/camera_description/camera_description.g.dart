@@ -10,8 +10,11 @@ _$_CameraDescription _$$_CameraDescriptionFromJson(Map<String, dynamic> json) =>
     _$_CameraDescription(
       id: json['id'] as String,
       label: json['label'] as String,
-      lensDirection:
-          $enumDecodeNullable(_$LensDirectionEnumMap, json['lensDirection']),
+      lensDirection: json['lensDirection'] == null
+          ? LensDirection.unknown
+          : const LensDirectionConverter()
+              .fromJson(json['lensDirection'] as String?),
+      sensorOrientation: json['sensorOrientation'] as int? ?? 90,
     );
 
 Map<String, dynamic> _$$_CameraDescriptionToJson(
@@ -19,11 +22,7 @@ Map<String, dynamic> _$$_CameraDescriptionToJson(
     <String, dynamic>{
       'id': instance.id,
       'label': instance.label,
-      'lensDirection': _$LensDirectionEnumMap[instance.lensDirection],
+      'lensDirection':
+          const LensDirectionConverter().toJson(instance.lensDirection),
+      'sensorOrientation': instance.sensorOrientation,
     };
-
-const _$LensDirectionEnumMap = {
-  LensDirection.front: 'front',
-  LensDirection.back: 'back',
-  LensDirection.unknown: 'unknown',
-};

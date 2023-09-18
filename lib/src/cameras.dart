@@ -1,17 +1,6 @@
-import 'package:universal_html/html.dart' as html;
-import 'dart:typed_data';
-import 'dart:ui_web' as ui;
-
-import 'package:flutter/material.dart';
-
+import 'platforms/interfaces/camera_controller.dart';
 import 'models/camera_description/camera_description.dart';
-import 'models/enums/supported_platforms.dart';
-import 'platforms/cameras_platform_interface.dart';
-import 'platforms/implementations/android_camera.dart';
-import 'platforms/implementations/ios_camera.dart';
-import 'platforms/implementations/web_camera.dart';
-
-part 'camera_controller.dart';
+import 'platforms/interfaces/cameras_platform_interface.dart';
 
 /// Main class for the `cameras` plugin.
 ///
@@ -40,8 +29,7 @@ class Cameras {
   /// Creates and returns a [CameraController] for controlling camera actions.
   ///
   /// The returned controller will be specific to the current platform (e.g., Android, iOS, Web).
-  Future<CameraController> getCameraController() async {
-    final platform = await _instance.getPlatformType();
-    return CameraController._(platform);
+  Future<CameraController> getCameraController() {
+    return _instance.getCameraController();
   }
 }

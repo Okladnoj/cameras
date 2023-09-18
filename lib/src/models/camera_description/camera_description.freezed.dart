@@ -30,7 +30,16 @@ mixin _$CameraDescription {
   /// This can be 'front', 'back', etc.
   /// Might be `null` if the lens direction is unknown or not specified.
   @LensDirectionConverter()
-  LensDirection? get lensDirection => throw _privateConstructorUsedError;
+  LensDirection get lensDirection => throw _privateConstructorUsedError;
+
+  /// Clockwise angle through which the output image needs to be rotated to be upright on the device screen in its native orientation.
+  ///
+  /// **Range of valid values:**
+  /// 0, 90, 180, 270
+  ///
+  /// On Android, also defines the direction of rolling shutter readout, which
+  /// is from top to bottom in the sensor's coordinate system.
+  int get sensorOrientation => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -47,7 +56,8 @@ abstract class $CameraDescriptionCopyWith<$Res> {
   $Res call(
       {String id,
       String label,
-      @LensDirectionConverter() LensDirection? lensDirection});
+      @LensDirectionConverter() LensDirection lensDirection,
+      int sensorOrientation});
 }
 
 /// @nodoc
@@ -65,7 +75,8 @@ class _$CameraDescriptionCopyWithImpl<$Res, $Val extends CameraDescription>
   $Res call({
     Object? id = null,
     Object? label = null,
-    Object? lensDirection = freezed,
+    Object? lensDirection = null,
+    Object? sensorOrientation = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -76,10 +87,14 @@ class _$CameraDescriptionCopyWithImpl<$Res, $Val extends CameraDescription>
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      lensDirection: freezed == lensDirection
+      lensDirection: null == lensDirection
           ? _value.lensDirection
           : lensDirection // ignore: cast_nullable_to_non_nullable
-              as LensDirection?,
+              as LensDirection,
+      sensorOrientation: null == sensorOrientation
+          ? _value.sensorOrientation
+          : sensorOrientation // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -95,7 +110,8 @@ abstract class _$$_CameraDescriptionCopyWith<$Res>
   $Res call(
       {String id,
       String label,
-      @LensDirectionConverter() LensDirection? lensDirection});
+      @LensDirectionConverter() LensDirection lensDirection,
+      int sensorOrientation});
 }
 
 /// @nodoc
@@ -111,7 +127,8 @@ class __$$_CameraDescriptionCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? label = null,
-    Object? lensDirection = freezed,
+    Object? lensDirection = null,
+    Object? sensorOrientation = null,
   }) {
     return _then(_$_CameraDescription(
       id: null == id
@@ -122,21 +139,27 @@ class __$$_CameraDescriptionCopyWithImpl<$Res>
           ? _value.label
           : label // ignore: cast_nullable_to_non_nullable
               as String,
-      lensDirection: freezed == lensDirection
+      lensDirection: null == lensDirection
           ? _value.lensDirection
           : lensDirection // ignore: cast_nullable_to_non_nullable
-              as LensDirection?,
+              as LensDirection,
+      sensorOrientation: null == sensorOrientation
+          ? _value.sensorOrientation
+          : sensorOrientation // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
 
 /// @nodoc
 @JsonSerializable()
-class _$_CameraDescription implements _CameraDescription {
+class _$_CameraDescription extends _CameraDescription {
   const _$_CameraDescription(
       {required this.id,
       required this.label,
-      @LensDirectionConverter() this.lensDirection});
+      @LensDirectionConverter() this.lensDirection = LensDirection.unknown,
+      this.sensorOrientation = 90})
+      : super._();
 
   factory _$_CameraDescription.fromJson(Map<String, dynamic> json) =>
       _$$_CameraDescriptionFromJson(json);
@@ -153,28 +176,25 @@ class _$_CameraDescription implements _CameraDescription {
   /// This can be 'front', 'back', etc.
   /// Might be `null` if the lens direction is unknown or not specified.
   @override
+  @JsonKey()
   @LensDirectionConverter()
-  final LensDirection? lensDirection;
+  final LensDirection lensDirection;
+
+  /// Clockwise angle through which the output image needs to be rotated to be upright on the device screen in its native orientation.
+  ///
+  /// **Range of valid values:**
+  /// 0, 90, 180, 270
+  ///
+  /// On Android, also defines the direction of rolling shutter readout, which
+  /// is from top to bottom in the sensor's coordinate system.
+  @override
+  @JsonKey()
+  final int sensorOrientation;
 
   @override
   String toString() {
-    return 'CameraDescription(id: $id, label: $label, lensDirection: $lensDirection)';
+    return 'CameraDescription(id: $id, label: $label, lensDirection: $lensDirection, sensorOrientation: $sensorOrientation)';
   }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_CameraDescription &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.label, label) || other.label == label) &&
-            (identical(other.lensDirection, lensDirection) ||
-                other.lensDirection == lensDirection));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, id, label, lensDirection);
 
   @JsonKey(ignore: true)
   @override
@@ -191,12 +211,13 @@ class _$_CameraDescription implements _CameraDescription {
   }
 }
 
-abstract class _CameraDescription implements CameraDescription {
+abstract class _CameraDescription extends CameraDescription {
   const factory _CameraDescription(
-          {required final String id,
-          required final String label,
-          @LensDirectionConverter() final LensDirection? lensDirection}) =
-      _$_CameraDescription;
+      {required final String id,
+      required final String label,
+      @LensDirectionConverter() final LensDirection lensDirection,
+      final int sensorOrientation}) = _$_CameraDescription;
+  const _CameraDescription._() : super._();
 
   factory _CameraDescription.fromJson(Map<String, dynamic> json) =
       _$_CameraDescription.fromJson;
@@ -215,7 +236,17 @@ abstract class _CameraDescription implements CameraDescription {
   /// This can be 'front', 'back', etc.
   /// Might be `null` if the lens direction is unknown or not specified.
   @LensDirectionConverter()
-  LensDirection? get lensDirection;
+  LensDirection get lensDirection;
+  @override
+
+  /// Clockwise angle through which the output image needs to be rotated to be upright on the device screen in its native orientation.
+  ///
+  /// **Range of valid values:**
+  /// 0, 90, 180, 270
+  ///
+  /// On Android, also defines the direction of rolling shutter readout, which
+  /// is from top to bottom in the sensor's coordinate system.
+  int get sensorOrientation;
   @override
   @JsonKey(ignore: true)
   _$$_CameraDescriptionCopyWith<_$_CameraDescription> get copyWith =>

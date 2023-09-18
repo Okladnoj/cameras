@@ -1,3 +1,12 @@
+## 1.0.1
+
+- Fixed Web capture image
+
+## 1.0.0
+
+- Added Android support
+- Added iOS support
+
 ## 0.1.0 - Added request front back prefer
 
 - Fixed Camera Permission

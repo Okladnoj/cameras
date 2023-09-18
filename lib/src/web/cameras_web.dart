@@ -4,9 +4,12 @@ import 'package:universal_html/html.dart' as html show window, Navigator;
 
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 
+import '../platforms/interfaces/camera_controller.dart';
 import '../models/camera_description/camera_description.dart';
 import '../models/enums/supported_platforms.dart';
-import '../platforms/cameras_platform_interface.dart';
+
+import '../platforms/interfaces/cameras_platform_interface.dart';
+import 'controller_web.dart';
 
 class CamerasWeb extends CamerasPlatform {
   CamerasWeb();
@@ -57,6 +60,12 @@ class CamerasWeb extends CamerasPlatform {
       log('An error occurred while getting available cameras: $error');
     }
     return availableCameras;
+  }
+
+  @override
+  Future<CameraController> getCameraController() async {
+    final platform = await getPlatformType();
+    return ControllerWeb.init(platform);
   }
 
   Future<void> _navigatorRequestPermissions(bool back) async {

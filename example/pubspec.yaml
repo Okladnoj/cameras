@@ -1,5 +1,6 @@
 name: a_cameras_example
 description: Demonstrates how to use the cameras plugin.
+version: 0.1.0
 publish_to: 'none'
 
 environment:
@@ -8,11 +9,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  cupertino_icons: ^1.0.2
   a_cameras:
     path: ../
 
-  cupertino_icons: ^1.0.2
 
 dev_dependencies:
   integration_test:

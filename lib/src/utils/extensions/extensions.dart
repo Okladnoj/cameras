@@ -1,4 +1,4 @@
-import '../../platforms/cameras_method_channel.dart';
+import '../../platforms/implementations/cameras_method_channel.dart';
 
 extension MethodChannelCamerasExt on MethodChannelCameras {
   Future<T?> iMethod<T>(String method, [dynamic arguments]) {
