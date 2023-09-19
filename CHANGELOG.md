@@ -1,3 +1,7 @@
+## 1.0.3
+
+- Fixed Switch camera on Android Device
+
 ## 1.0.2
 
 - Fixed Web capture image on iOS Device

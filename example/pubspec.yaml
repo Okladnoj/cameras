@@ -1,6 +1,6 @@
 name: a_cameras_example
 description: Demonstrates how to use the cameras plugin.
-version: 0.1.0
+version: 0.1.0+3
 publish_to: 'none'
 
 environment:

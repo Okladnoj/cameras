@@ -11,19 +11,11 @@ abstract class CameraController {
   final SuppPlatform platform;
 
   /// Instance of the web camera (if available).
-  final CameraInterface? webCamera;
-
-  /// Instance of the Android camera (if available).
-  final CameraInterface? androidCamera;
-
-  /// Instance of the iOS camera (if available).
-  final CameraInterface? iOSCamera;
+  final CameraInterface camera;
 
   CameraController({
     required this.platform,
-    this.webCamera,
-    this.androidCamera,
-    this.iOSCamera,
+    required this.camera,
   });
 
   /// Constructs a [CameraController] for the given platform [p].

@@ -8,6 +8,7 @@ import '../models/cameras/web_camera.dart';
 import '../platforms/interfaces/camera_controller.dart';
 import '../models/camera_description/camera_description.dart';
 import '../models/enums/supported_platforms.dart';
+import '../utils/logger/logger_web.dart';
 
 /// Controller for managing camera functionalities.
 ///
@@ -17,48 +18,28 @@ class ControllerWeb extends CameraController {
 
   /// Constructs a [ControllerWeb] for the given platform [p].
 
-  ControllerWeb._({required super.platform, super.webCamera});
+  ControllerWeb._({required super.platform, required super.camera});
 
   factory ControllerWeb.init(SuppPlatform platform) {
-    switch (platform) {
-      case SuppPlatform.web:
-        return ControllerWeb._(platform: platform, webCamera: WebCamera());
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return ControllerWeb._(platform: platform, camera: WebCamera());
   }
 
   /// Initializes the camera using the provided [cameraDescription].
   @override
   Future<void> initializeCamera(CameraDescription cameraDescription) async {
-    switch (platform) {
-      case SuppPlatform.web:
-        return webCamera?.initializeCamera(cameraDescription);
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return camera.initializeCamera(cameraDescription);
   }
 
   /// Starts the camera stream for the current platform.
   @override
   Future<void> startStream() async {
-    switch (platform) {
-      case SuppPlatform.web:
-        return webCamera?.startStream();
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return camera.startStream();
   }
 
   /// Stops the camera stream for the current platform.
   @override
   Future<void> stopStream() async {
-    switch (platform) {
-      case SuppPlatform.web:
-        return webCamera?.stopStream();
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return camera.stopStream();
   }
 
   /// Captures an image using the camera on the current platform.
@@ -66,12 +47,7 @@ class ControllerWeb extends CameraController {
   /// Returns a [Uint8List] that contains the image data.
   @override
   Future<Uint8List?> captureImage() async {
-    switch (platform) {
-      case SuppPlatform.web:
-        return webCamera?.captureImage(_videoElement);
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return camera.captureImage(_videoElement);
   }
 
   /// Builds the camera preview widget based on the current platform.
@@ -87,15 +63,15 @@ class ControllerWeb extends CameraController {
 
   /// Builds the camera preview widget for web.
   Widget _buildWebPreview() {
-    final webCamera = this.webCamera;
-    if (webCamera is! WebCamera) return const SizedBox.shrink();
+    var camera = this.camera;
+    if (camera is! WebCamera) return const SizedBox.shrink();
 
-    _videoElement = _getVideoElement(webCamera);
-    final videoElement = _videoElement;
+    _videoElement = _getVideoElement(camera);
+    var videoElement = _videoElement;
 
     if (videoElement == null) return const SizedBox.shrink();
 
-    final videoElementId =
+    var videoElementId =
         'camera-preview-${DateTime.now().millisecondsSinceEpoch}';
     videoElement.id = videoElementId;
 
@@ -114,58 +90,15 @@ class ControllerWeb extends CameraController {
     );
   }
 
-  html.VideoElement _getVideoElement(WebCamera webCamera) {
+  html.VideoElement _getVideoElement(WebCamera camera) {
     final userAgent = html.window.navigator.userAgent.toLowerCase();
 
-    if (RegExp(r'ipad').hasMatch(userAgent)) {
-      final videoElement = html.VideoElement()
-        ..srcObject = webCamera.currentStream
-        ..autoplay = true
-        ..controls = false
-        ..setAttribute('playsinline', 'true')
-        ..style.position = 'absolute'
-        ..style.minWidth = '100%'
-        ..style.minHeight = '100%'
-        ..style.width = 'auto'
-        ..style.height = 'auto'
-        ..style.top = '50%'
-        ..style.left = '50%'
-        ..style.pointerEvents = 'none'
-        ..style.cursor = 'none'
-        ..style.transform = 'translate(-50%, -50%)';
-
-      videoElement.addEventListener('click', (e) {
-        e.preventDefault();
-      });
-      return videoElement;
-    }
-    if (RegExp(r'iphone|ipod').hasMatch(userAgent)) {
-      final videoElement = html.VideoElement()
-        ..srcObject = webCamera.currentStream
-        ..autoplay = true
-        ..controls = false
-        ..setAttribute('playsinline', 'true')
-        ..style.position = 'absolute'
-        ..style.minWidth = '100%'
-        ..style.minHeight = '100%'
-        ..style.width = 'auto'
-        ..style.height = 'auto'
-        ..style.top = '50%'
-        ..style.left = '50%'
-        ..style.pointerEvents = 'none'
-        ..style.cursor = 'none'
-        ..style.transform = 'translate(-50%, -50%)';
-
-      videoElement.addEventListener('click', (e) {
-        e.preventDefault();
-      });
-      return videoElement;
-    }
     if (RegExp(r'android').hasMatch(userAgent)) {
-      final videoElement = html.VideoElement()
-        ..srcObject = webCamera.currentStream
+      var videoElement = html.VideoElement()
+        ..srcObject = camera.currentStream
         ..autoplay = true
         ..controls = false
+        ..setAttribute('playsinline', 'true')
         ..style.position = 'absolute'
         ..style.minWidth = '100%'
         ..style.minHeight = '100%'
@@ -173,22 +106,21 @@ class ControllerWeb extends CameraController {
         ..style.height = 'auto'
         ..style.top = '50%'
         ..style.left = '50%'
+        ..style.pointerEvents = 'none'
+        ..style.cursor = 'none'
         ..style.transform = 'translate(-50%, -50%)';
+
+      loggerWeb.e(videoElement);
+
+      videoElement.addEventListener('click', (e) {
+        e.preventDefault();
+      });
 
       return videoElement;
     }
-    if (RegExp(r'windows nt').hasMatch(userAgent)) {
-      // Windows
-    }
-    if (RegExp(r'mac os').hasMatch(userAgent)) {
-      // macOS
-    }
-    if (RegExp(r'linux').hasMatch(userAgent)) {
-      // Linux
-    }
 
-    final videoElement = html.VideoElement()
-      ..srcObject = webCamera.currentStream
+    var videoElement = html.VideoElement()
+      ..srcObject = camera.currentStream
       ..autoplay = true
       ..controls = false
       ..setAttribute('playsinline', 'true')
@@ -206,6 +138,7 @@ class ControllerWeb extends CameraController {
     videoElement.addEventListener('click', (e) {
       e.preventDefault();
     });
+
     return videoElement;
   }
 }

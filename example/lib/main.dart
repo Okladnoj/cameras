@@ -4,8 +4,15 @@ import 'dart:async';
 
 import 'picture_page.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initLogger();
+  runApp(
+    const MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(body: MyApp()),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -22,6 +29,13 @@ class _MyAppState extends State<MyApp> {
   CameraController? _controller;
   bool _loading = false;
   int _currentCameraIndex = 0;
+  Timer? _timer;
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -29,12 +43,23 @@ class _MyAppState extends State<MyApp> {
     _initPlatformState();
   }
 
-  Future<void> _initPlatformState() async {
+  Future<void> _initPlatformState([bool back = true]) async {
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      ls?.showString(context);
+    });
+
     setState(() {
       _loading = true;
     });
-    final result = await _camerasPlugin.getAvailableCameras();
+    final result = await _camerasPlugin.getAvailableCameras(back);
     _controller = await _camerasPlugin.getCameraController();
+    if (result.isEmpty) {
+      setState(() {
+        _list = result;
+        _loading = false;
+      });
+      return;
+    }
     await _controller?.initializeCamera(result.first);
 
     setState(() {
@@ -44,7 +69,11 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _switchCamera() async {
+    if (_list.isEmpty) return _initPlatformState(false);
+
     final newIndex = (_currentCameraIndex + 1) % _list.length;
+    ls?.setString('newIndex = > $newIndex');
+    ls?.setString('_list = > $_list');
     await _controller?.initializeCamera(_list[newIndex]);
 
     setState(() {

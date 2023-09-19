@@ -1,6 +1,13 @@
 import 'platforms/interfaces/camera_controller.dart';
 import 'models/camera_description/camera_description.dart';
 import 'platforms/interfaces/cameras_platform_interface.dart';
+import 'utils/logger/services/logger_service.dart';
+
+Future<void> initLogger() async {
+  ls = await LoggerService.instance;
+}
+
+LoggerService? ls;
 
 /// Main class for the `cameras` plugin.
 ///

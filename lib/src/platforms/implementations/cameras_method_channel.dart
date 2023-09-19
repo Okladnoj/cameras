@@ -2,9 +2,11 @@ import 'package:camera/camera.dart' as camera;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
+import '../../cameras.dart';
 import '../../models/camera_description/camera_description.dart';
 import '../../models/enums/supported_platforms.dart';
 import '../../utils/extensions/extensions.dart';
+import '../../utils/logger/services/logger_service.dart';
 import '../interfaces/camera_controller.dart';
 import '../interfaces/cameras_platform_interface.dart';
 import 'controller_mobile.dart';
@@ -14,6 +16,7 @@ class MethodChannelCameras extends CamerasPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
+    ls = await LoggerService.instance;
     final version = await iMethod<String>('getPlatformVersion');
     return version;
   }

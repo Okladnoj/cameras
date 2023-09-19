@@ -12,6 +12,7 @@ import 'package:flutter/services.dart';
 
 import '../../../../a_cameras.dart';
 import '../../platforms/interfaces/camera_interface.dart';
+import '../../utils/logger/logger_web.dart';
 
 /// Represents the web implementation of the [CameraInterface].
 /// Provides methods to interact with the camera on a web platform.
@@ -23,13 +24,19 @@ class WebCamera implements CameraInterface {
   /// Throws an [Exception] if media devices are not available on the web platform.
   @override
   Future<void> initializeCamera(CameraDescription cameraDescription) async {
-    if (html.window.navigator.mediaDevices != null) {
+    final navigator = html.window.navigator;
+    if (navigator.mediaDevices != null) {
       final constraints = {
         'video': {'deviceId': cameraDescription.id}
       };
-      _cameraStream =
-          await html.window.navigator.mediaDevices!.getUserMedia(constraints);
+      loggerWeb.e('constraints: $constraints');
+      await stopStream();
+
+      _cameraStream = await navigator.mediaDevices!.getUserMedia(constraints);
+      loggerWeb.e('end constraints: $constraints');
+      await Future.delayed(const Duration(milliseconds: 150));
     } else {
+      loggerWeb.e('Exception(Media devices are not available)');
       throw Exception('Media devices are not available');
     }
   }

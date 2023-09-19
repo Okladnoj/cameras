@@ -16,8 +16,7 @@ class ControllerMobile extends CameraController {
 
   ControllerMobile._({
     required super.platform,
-    super.androidCamera,
-    super.iOSCamera,
+    required super.camera,
   });
 
   factory ControllerMobile.init(SuppPlatform platform) {
@@ -25,12 +24,12 @@ class ControllerMobile extends CameraController {
       case SuppPlatform.android:
         return ControllerMobile._(
           platform: platform,
-          androidCamera: AndroidCamera(),
+          camera: AndroidCamera(),
         );
       case SuppPlatform.ios:
         return ControllerMobile._(
           platform: platform,
-          iOSCamera: IOSCamera(),
+          camera: IOSCamera(),
         );
       default:
         throw UnsupportedError('Platform not supported');
@@ -40,40 +39,19 @@ class ControllerMobile extends CameraController {
   /// Initializes the camera using the provided [cameraDescription].
   @override
   Future<void> initializeCamera(CameraDescription cameraDescription) async {
-    switch (platform) {
-      case SuppPlatform.android:
-        return androidCamera?.initializeCamera(cameraDescription);
-      case SuppPlatform.ios:
-        return iOSCamera?.initializeCamera(cameraDescription);
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    camera.initializeCamera(cameraDescription);
   }
 
   /// Starts the camera stream for the current platform.
   @override
   Future<void> startStream() async {
-    switch (platform) {
-      case SuppPlatform.android:
-        return androidCamera?.startStream();
-      case SuppPlatform.ios:
-        return iOSCamera?.startStream();
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return camera.startStream();
   }
 
   /// Stops the camera stream for the current platform.
   @override
   Future<void> stopStream() async {
-    switch (platform) {
-      case SuppPlatform.android:
-        return androidCamera?.stopStream();
-      case SuppPlatform.ios:
-        return iOSCamera?.stopStream();
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return camera.stopStream();
   }
 
   /// Captures an image using the camera on the current platform.
@@ -81,14 +59,7 @@ class ControllerMobile extends CameraController {
   /// Returns a [Uint8List] that contains the image data.
   @override
   Future<Uint8List?> captureImage() async {
-    switch (platform) {
-      case SuppPlatform.android:
-        return androidCamera?.captureImage();
-      case SuppPlatform.ios:
-        return iOSCamera?.captureImage();
-      default:
-        throw UnsupportedError('Platform not supported');
-    }
+    return camera.captureImage();
   }
 
   /// Builds the camera preview widget based on the current platform.
@@ -108,7 +79,7 @@ class ControllerMobile extends CameraController {
   ///
   /// This method should be implemented to return the camera preview for Android and iOS.
   Widget _buildAndroidPreview() {
-    final camera = androidCamera;
+    final camera = this.camera;
     if (camera is! AndroidCamera) return const SizedBox.shrink();
 
     final controller = camera.controller;
@@ -121,7 +92,7 @@ class ControllerMobile extends CameraController {
   ///
   /// This method should be implemented to return the camera preview for Android and iOS.
   Widget _buildIosPreview() {
-    final camera = iOSCamera;
+    final camera = this.camera;
     if (camera is! IOSCamera) return const SizedBox.shrink();
 
     final controller = camera.controller;
