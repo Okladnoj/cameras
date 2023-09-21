@@ -14,6 +14,8 @@ class AndroidCamera implements CameraInterface {
       _controller = camera.CameraController(
         cameraDescription.toHelpLib,
         camera.ResolutionPreset.max,
+        enableAudio: false,
+        imageFormatGroup: camera.ImageFormatGroup.jpeg,
       );
       await _controller?.initialize();
     } on PlatformException catch (e) {

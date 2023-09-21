@@ -85,6 +85,8 @@ class ControllerMobile extends CameraController {
     final controller = camera.controller;
     if (controller == null) return const SizedBox.shrink();
 
+    if (!controller.value.isInitialized) return const SizedBox.shrink();
+
     return controller.buildPreview();
   }
 
@@ -97,6 +99,8 @@ class ControllerMobile extends CameraController {
 
     final controller = camera.controller;
     if (controller == null) return const SizedBox.shrink();
+
+    if (!controller.value.isInitialized) return const SizedBox.shrink();
 
     return controller.buildPreview();
   }

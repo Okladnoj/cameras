@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog
-comments=("Fixed Switch camera on Android Device")
+comments=("Added ImageFormatGroup.jpeg to Android")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

@@ -1,3 +1,11 @@
+## 1.0.5
+
+- Added ImageFormatGroup.jpeg to Android
+
+## 1.0.4
+
+- Fixed Controller initializations
+
 ## 1.0.3
 
 - Fixed Switch camera on Android Device
