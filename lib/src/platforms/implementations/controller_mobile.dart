@@ -39,7 +39,7 @@ class ControllerMobile extends CameraController {
   /// Initializes the camera using the provided [cameraDescription].
   @override
   Future<void> initializeCamera(CameraDescription cameraDescription) async {
-    camera.initializeCamera(cameraDescription);
+    return camera.initializeCamera(cameraDescription);
   }
 
   /// Starts the camera stream for the current platform.
@@ -85,6 +85,8 @@ class ControllerMobile extends CameraController {
     final controller = camera.controller;
     if (controller == null) return const SizedBox.shrink();
 
+    if (!controller.value.isInitialized) return const SizedBox.shrink();
+
     return controller.buildPreview();
   }
 
@@ -97,6 +99,8 @@ class ControllerMobile extends CameraController {
 
     final controller = camera.controller;
     if (controller == null) return const SizedBox.shrink();
+
+    if (!controller.value.isInitialized) return const SizedBox.shrink();
 
     return controller.buildPreview();
   }
