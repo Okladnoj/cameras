@@ -39,7 +39,7 @@ class ControllerMobile extends CameraController {
   /// Initializes the camera using the provided [cameraDescription].
   @override
   Future<void> initializeCamera(CameraDescription cameraDescription) async {
-    camera.initializeCamera(cameraDescription);
+    return camera.initializeCamera(cameraDescription);
   }
 
   /// Starts the camera stream for the current platform.

@@ -18,15 +18,7 @@ class AndroidCamera implements CameraInterface {
         imageFormatGroup: camera.ImageFormatGroup.jpeg,
       );
 
-      int count = 0;
-
       await _controller?.initialize();
-
-      while (!(_controller?.value.isInitialized ?? false)) {
-        await Future.delayed(const Duration(milliseconds: 300));
-        if (count > 10) break;
-        count++;
-      }
     } on PlatformException catch (e) {
       loggerMobile.e('Error initializing camera: ${e.message}');
     }
