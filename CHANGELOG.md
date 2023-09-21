@@ -1,3 +1,7 @@
+## 1.0.6
+
+- Fixed initialize camera on Mobiles
+
 ## 1.0.5
 
 - Added ImageFormatGroup.jpeg to Android
