@@ -22,7 +22,8 @@ class AndroidCamera implements CameraInterface {
 
       await _controller?.initialize();
 
-      while ((count < 10) || !(_controller?.value.isInitialized ?? false)) {
+      while (!(_controller?.value.isInitialized ?? false)) {
+        if (count < 10) break;
         await Future.delayed(const Duration(milliseconds: 300));
         count++;
       }
