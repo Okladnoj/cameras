@@ -15,7 +15,7 @@ Add the following to your `pubspec.yaml` file:
 
 ```
 dependencies:
-  a_cameras: ^1.0.5
+  a_cameras: ^1.0.6
 ```
 
 Then run `flutter pub get`.
