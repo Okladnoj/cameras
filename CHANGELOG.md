@@ -39,43 +39,43 @@
 - Added Android support
 - Added iOS support
 
-## 0.1.0 - Added request front back prefer
+## 0.1.0
 
 - Fixed Camera Permission
 - Added front back ability
 
-## 0.0.8 - Camera improvements
+## 0.0.8
 
 - Fixed Camera Permission
 - Added Video settings
 
-## 0.0.7 - Added web console
+## 0.0.7
 
 - Added web console
 
-## 0.0.6 - Fixed Camera request permission
+## 0.0.6
 
 - Improvements Camera
 - Change request permission
 
-## 0.0.5 - Added logger
+## 0.0.5
 
 - Added logger.
 
-## 0.0.4 - Added Settings request
+## 0.0.4
 
 - Added Settings request by camera.
 
-## 0.0.3 - Added Manuals | Added logs error
+## 0.0.3
 
 - Added Manuals.
 - Log errors.
 
-## 0.0.2 - Added Docs
+## 0.0.2
 
 - Added Docs of the Cameras plugin.
 
-## 0.0.1 - Initial release
+## 0.0.1
 
 - Initial release of the Cameras plugin.
 - Support for Web platform.
