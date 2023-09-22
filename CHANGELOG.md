@@ -1,3 +1,15 @@
+## 1.0.9
+
+- Changed Readme
+
+## 1.0.8
+
+- Added linters
+
+## 1.0.7
+
+- Fixed Pub point issues
+
 ## 1.0.6
 
 - Fixed initialize camera on Mobiles

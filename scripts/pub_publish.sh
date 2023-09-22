@@ -9,7 +9,7 @@
 cd "$(dirname "$0")/.."
 
 # Your comments for the changelog
-comments=("Fixed initialize camera on Mobiles")
+comments=("Changed Readme")
 
 # Increment the version number
 echo -e "\033[32mIncrementing the version number...\033[0m"

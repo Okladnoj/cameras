@@ -15,7 +15,7 @@ Add the following to your `pubspec.yaml` file:
 
 ```
 dependencies:
-  a_cameras: ^1.0.6
+  a_cameras: ^1.0.9
 ```
 
 Then run `flutter pub get`.
@@ -96,6 +96,53 @@ Future<void> switchCamera() async {
   });
 }
 ```
+
+### Display the Camera Stream
+
+To display the camera stream on the screen, you can use the `buildPreview` method from the controller inside your widget tree. Here's a simple example:
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:a_cameras/a_cameras.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late CameraController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    initCamera();
+  }
+
+  Future<void> initCamera() async {
+    final camerasPlugin = Cameras();
+    List<CameraDescription> availableCameras = await camerasPlugin.getAvailableCameras();
+    controller = await camerasPlugin.getCameraController();
+    await controller.initializeCamera(availableCameras.first);
+
+    setState(() {});
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: controller.buildPreview(context),
+      ),
+    );
+  }
+}
+```
+In this example, we used `controller.buildPreview(context)` to display the camera stream within a `Scaffold'`
 
 ## Supported Platforms
 

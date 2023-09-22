@@ -1,15 +1,10 @@
 
-include: package:flutter_lints/flutter.yaml
+include: package:lints/core.yaml
 
 analyzer:
   exclude:
-    - lib/**app_localizations_**.dart
-    - lib/**mock**.dart
-    - lib/**.config.dart
-    - lib/**.graphql.dart
-    # - lib/routes/**.gr.dart
+    - lib/routes/**.gr.dart
     - lib/**.freezed.dart
-    - lib/**.hive.dart
     - lib/**.g.dart
     - build/**
   errors:
@@ -45,3 +40,4 @@ linter:
     omit_local_variable_types: false
     unawaited_futures: false
     sort_constructors_first: false
+    avoid_single_cascade_in_expression_statements: false
