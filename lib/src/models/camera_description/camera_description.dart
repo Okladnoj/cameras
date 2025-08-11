@@ -78,7 +78,7 @@ class CameraDescription with _$CameraDescription {
   }
 
   @override
-  operator ==(dynamic other) => other is CameraDescription && other.id == id;
+  operator ==(Object other) => other is CameraDescription && other.id == id;
 
   @override
   int get hashCode => id.hashCode;

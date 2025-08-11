@@ -85,7 +85,7 @@ class _MyAppState extends State<MyApp> {
     final bytes = await _controller?.captureImage();
     if (bytes == null) return;
 
-    if (!mounted) return;
+    if (!context.mounted) return;
 
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -125,7 +125,7 @@ class _MyAppState extends State<MyApp> {
             return OutlinedButton(
               onPressed: () => _captureImage(context),
               style: OutlinedButton.styleFrom(
-                backgroundColor: Colors.blue.withOpacity(0.4),
+                backgroundColor: Colors.blue.withValues(alpha: 0.4),
                 shape: const StadiumBorder(),
               ),
               child: const Icon(Icons.camera_alt, size: 64),

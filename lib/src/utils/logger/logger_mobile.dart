@@ -1,14 +1,4 @@
-import 'package:logger/logger.dart';
+// Conditional import to avoid dart:io on web
+import 'logger_stub.dart' if (dart.library.io) 'logger_mobile_io.dart';
 
-final loggerMobile = Logger(printer: CustomPrinter());
-
-class CustomPrinter extends LogPrinter {
-  final PrettyPrinter prettyPrinter = PrettyPrinter(lineLength: 120);
-
-  @override
-  List<String> log(LogEvent event) {
-    final message = prettyPrinter.log(event);
-
-    return message;
-  }
-}
+final loggerMobile = loggerStub;

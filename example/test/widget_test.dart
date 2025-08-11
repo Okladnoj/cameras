@@ -11,17 +11,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:a_cameras_example/main.dart';
 
 void main() {
-  testWidgets('Verify Platform version', (WidgetTester tester) async {
+  testWidgets('Verify app loads correctly', (WidgetTester tester) async {
     // Build our app and trigger a frame.
     await tester.pumpWidget(const MyApp());
 
-    // Verify that platform version is retrieved.
-    expect(
-      find.byWidgetPredicate(
-        (Widget widget) =>
-            widget is Text && widget.data!.startsWith('Running on:'),
-      ),
-      findsOneWidget,
-    );
+    // Verify that the app bar is present
+    expect(find.byType(AppBar), findsOneWidget);
+
+    // Verify that the app bar title is present
+    expect(find.text('Plugin example app'), findsOneWidget);
+
+    // Verify that the floating action button is present
+    expect(find.byType(OutlinedButton), findsOneWidget);
   });
 }

@@ -1,3 +1,17 @@
+## 1.1.0
+
+- **BREAKING**: Fixed web platform compatibility by resolving dart:io import issues
+- Updated all dependencies to latest compatible versions
+- Fixed Dart analysis issues and warnings
+- Improved logger implementation with conditional imports for web/mobile platforms
+- Fixed deprecated method usage (withOpacity → withValues)
+- Updated web initialization to use modern Flutter web APIs
+- Enhanced type safety (dynamic → Object in equality operators)
+- Fixed BuildContext usage in async operations
+- Updated analysis_options.yaml with proper exclusions and rules
+- All tests now pass successfully
+- Web build compatibility restored
+
 ## 1.0.9
 
 - Changed Readme

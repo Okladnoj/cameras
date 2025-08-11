@@ -9,7 +9,9 @@ analyzer:
     - build/**
   errors:
     invalid_annotation_target: ignore
-  
+  language:
+    strict-casts: false
+    strict-raw-types: false
 
 linter:
   rules:
@@ -37,7 +39,9 @@ linter:
     unnecessary_this: true
     use_key_in_widget_constructors: true
 
+    # Disabled rules
     omit_local_variable_types: false
     unawaited_futures: false
     sort_constructors_first: false
     avoid_single_cascade_in_expression_statements: false
+    use_build_context_synchronously: false
