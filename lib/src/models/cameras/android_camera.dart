@@ -42,7 +42,7 @@ class AndroidCamera implements CameraInterface {
   Future<Uint8List?> captureImage([dynamic element]) async {
     try {
       final file = await _controller?.takePicture();
-      final bites = file?.readAsBytes();
+      final bites = await file?.readAsBytes();
       return bites;
     } on PlatformException catch (e) {
       loggerMobile.e('Error capturing image: ${e.message}');

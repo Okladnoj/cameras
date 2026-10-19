@@ -1,9 +1,11 @@
 name: a_cameras
 description: A Flutter plugin for accessing camera functionalities across various platforms with a unified API. Currently supports web only.
-version: 1.1.0
+version: 1.1.1
 
 homepage: https://okladnoj-bio.web.app/
 repository: https://github.com/Okladnoj/cameras
+funding:
+  - https://donate-okji.web.app/
 
 environment:
   sdk: '>=3.1.0 <4.0.0'

@@ -1,3 +1,9 @@
+## 1.1.1
+
+- Fix captureImage on Android and iOS: errors while reading image bytes are now caught
+- Add support section with a donation page link
+- Add funding link to pubspec
+
 ## 1.1.0
 
 - **BREAKING**: Fixed web platform compatibility by resolving dart:io import issues

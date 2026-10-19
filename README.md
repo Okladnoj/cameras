@@ -15,7 +15,7 @@ Add the following to your `pubspec.yaml` file:
 
 ```
 dependencies:
-  a_cameras: ^1.0.9
+  a_cameras: ^1.1.1
 ```
 
 Then run `flutter pub get`.
@@ -153,6 +153,12 @@ In this example, we used `controller.buildPreview(context)` to display the camer
 ## Contributing
 
 Contributions are welcome! Feel free to open an issue or submit a pull request if you have any improvements.
+
+## Support the project
+
+If you find this package helpful, consider supporting its development. All current ways to support my work are collected on one page:
+
+<a href="https://donate-okji.web.app/" target="_blank"><img src="https://img.shields.io/badge/Donate-Support%20my%20work-E91E63?style=for-the-badge&logo=githubsponsors&logoColor=white" alt="Donate"></a>
 
 ## License
 
